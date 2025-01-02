@@ -1,4 +1,4 @@
-import { DurableObject } from "cloudflare:workers";
+import { DurableObject } from 'cloudflare:workers'
 
 /**
  * Welcome to Cloudflare Workers! This is your first Durable Objects application.
@@ -23,7 +23,7 @@ export class LiveGeoJsonObject extends DurableObject {
 	 * @param env - The interface to reference bindings declared in wrangler.toml
 	 */
 	constructor(ctx: DurableObjectState, env: Env) {
-		super(ctx, env);
+		super(ctx, env)
 	}
 
 	/**
@@ -34,7 +34,7 @@ export class LiveGeoJsonObject extends DurableObject {
 	 * @returns The greeting to be sent back to the Worker
 	 */
 	async sayHello(name: string): Promise<string> {
-		return `Hello, ${name}!`;
+		return `Hello, ${name}!`
 	}
 }
 
@@ -50,16 +50,16 @@ export default {
 	async fetch(request, env, ctx): Promise<Response> {
 		// We will create a `DurableObjectId` using the pathname from the Worker request
 		// This id refers to a unique instance of our 'MyDurableObject' class above
-		let id: DurableObjectId = env.LIVE_GEOJSON_OBJECT.idFromName(new URL(request.url).pathname);
+		let id: DurableObjectId = env.LIVE_GEOJSON_OBJECT.idFromName(new URL(request.url).pathname)
 
 		// This stub creates a communication channel with the Durable Object instance
 		// The Durable Object constructor will be invoked upon the first call for a given id
-		let stub = env.LIVE_GEOJSON_OBJECT.get(id);
+		let stub = env.LIVE_GEOJSON_OBJECT.get(id)
 
 		// We call the `sayHello()` RPC method on the stub to invoke the method on the remote
 		// Durable Object instance
-		let greeting = await stub.sayHello("world");
+		let greeting = await stub.sayHello('world')
 
-		return new Response(greeting);
+		return new Response(greeting)
 	},
-} satisfies ExportedHandler<Env>;
+} satisfies ExportedHandler<Env>
