@@ -12,5 +12,9 @@
     "@cloudflare/workers-types": "^4.20241230.0",
     "typescript": "^5.5.2",
     "wrangler": "^3.60.3"
+  },
+  "dependencies": {
+		"crossws": ">=0.2.0 <0.4.0",
+    "y-crossws": "^0.0.2"
   }
 }
