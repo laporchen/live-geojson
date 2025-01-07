@@ -46,20 +46,29 @@ const onMapReady = (mapInst: any) => {
   })
 }
 
+const getFeatures = () => {
+  return (docRef.value?.getMap('map').get('features') ?? []) as Array<any>
+}
+
 const onMarkerUpdate = (evt: any, id: number) => {
   const { lat, lng } = evt.target.getLatLng()
-  const features = (docRef.value?.getMap('map').get('features') ?? []) as Array<any>
+  const features = getFeatures()
   const targetIndex = features.findIndex((feature) => feature.properties.id === id)
   if (targetIndex === -1) return
   features[targetIndex].geometry.coordinates = [lat, lng]
   docRef.value!.getMap('map').set('features', features)
 }
 
+const deleteMarker = (id: number) => {
+  const features = getFeatures()
+  const newFeatures = features.filter((feature) => feature.properties.id !== id)
+  docRef.value!.getMap('map').set('features', newFeatures)
+}
 </script>
 <template>
   <LMap
     ref="mapObj"
-    style="height: 350px"
+    style="height: 98dvh"
     :zoom="6"
     :center="[47.21322, -1.559482]"
     :use-global-leaflet="false"
@@ -72,7 +81,16 @@ const onMarkerUpdate = (evt: any, id: number) => {
       name="OpenStreetMap"
     />
     <template v-for="point in geojson.features" :key="point.properties.id">
-      <LMarker :lat-lng="point.geometry.coordinates" draggable @moveend="(evt: any) => onMarkerUpdate(evt, point.properties.id)" />
+      <LMarker :lat-lng="point.geometry.coordinates" draggable @moveend="(evt: any) => onMarkerUpdate(evt, point.properties.id)">
+        <LPopup> 
+          <div>
+            {{ point.properties.id }}
+            <button @click="() => deleteMarker(point.properties.id)">
+              Delete
+            </button>
+          </div>
+        </LPopup>
+      </LMarker>
     </template>
   </LMap>
 </template>
