@@ -13,5 +13,7 @@ export default defineNuxtConfig({
     public: {
       server: 'localhost:8787'
     }
-  }
+  },
+
+  ssr: false
 })
