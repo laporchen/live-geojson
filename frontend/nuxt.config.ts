@@ -7,5 +7,11 @@ export default defineNuxtConfig({
     preset: "cloudflare_module"
   },
 
-  modules: ["nitro-cloudflare-dev"]
+  modules: ["nitro-cloudflare-dev"],
+
+  runtimeConfig: {
+    public: {
+      server: 'localhost:8787'
+    }
+  }
 })
