@@ -12,7 +12,7 @@ const docRef = ref<Doc>()
 
 onMounted(() => {
   const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws'
-  const { wsProvider: ws, doc }= initWs(protocol)
+  const { wsProvider: ws, doc } = initWs(protocol)
   ws.on('status', event => {
     console.log('status change', event.status)
   })
