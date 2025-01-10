@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import type { Doc, Array as YArray } from 'yjs'
+
+const props = defineProps<{
+  roomId: string
+}>()
 const baseGeoJson =  {
   "type": "FeatureCollection",
   "features": []
@@ -12,7 +16,7 @@ const docRef = ref<Doc>()
 
 onMounted(() => {
   const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws'
-  const { wsProvider: ws, doc } = initWs(protocol)
+  const { wsProvider: ws, doc } = initWs(protocol, window.location.host, props.roomId)
   ws.on('status', event => {
     console.log('status change', event.status)
   })

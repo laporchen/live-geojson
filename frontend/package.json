@@ -16,6 +16,7 @@
     "nuxt": "^3.15.0",
     "vue": "latest",
     "vue-router": "latest",
+    "y-crossws": "^0.0.2",
     "y-websocket": "^2.1.0",
     "yjs": "^13.6.21"
   },

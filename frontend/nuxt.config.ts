@@ -4,7 +4,10 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   nitro: {
-    preset: "cloudflare_module"
+    preset: "cloudflare_module",
+    experimental: {
+      websocket: true
+    }
   },
 
   modules: ["nitro-cloudflare-dev", "@nuxtjs/leaflet"],
